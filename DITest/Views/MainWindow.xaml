@@ -20,6 +20,7 @@
             <Button Content="Stop" Command="{Binding BtnStopClickCommand}"/>
             <Button Content="DialogViewShow" Command="{Binding BtnDialogViewShowClickCommand}"/>
             <Button Content="DialogViewShowDialog" Command="{Binding BtnDialogViewShowDialogClickCommand}"/>
+            <Button Content="UserControlViewShow" Command="{Binding BtnUserControlViewShowClickCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

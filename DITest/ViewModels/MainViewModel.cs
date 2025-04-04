@@ -18,7 +18,7 @@ namespace DITest.ViewModels
         public ICommand BtnStopClickCommand { get; }
         public ICommand BtnDialogViewShowClickCommand { get; }
         public ICommand BtnDialogViewShowDialogClickCommand { get; }
-
+        public ICommand BtnUserControlViewShowClickCommand { get; }
         public MainViewModel(IDialogService dialogService, IIOService ioService, ICameraService cameraService, InspectionManager inspectionManager)
         {
             _dialogService = dialogService;
@@ -30,6 +30,7 @@ namespace DITest.ViewModels
             BtnStopClickCommand = new BindingCommand(OnBtnStopClick);
             BtnDialogViewShowClickCommand = new BindingCommand(OnBtnDialogViewShowClick);
             BtnDialogViewShowDialogClickCommand = new BindingCommand(OnBtnDialogViewShowDialogClick);
+            BtnUserControlViewShowClickCommand = new BindingCommand(OnBtnUserControlViewShowClick);
         }
 
         private void OnBtnStartClick()
@@ -47,6 +48,10 @@ namespace DITest.ViewModels
         private void OnBtnDialogViewShowDialogClick()
         {
             _dialogService.ShowDialog("DialogView");
+        }
+        private void OnBtnUserControlViewShowClick()
+        {
+            _dialogService.Show("UserControlView");
         }
     }
 }

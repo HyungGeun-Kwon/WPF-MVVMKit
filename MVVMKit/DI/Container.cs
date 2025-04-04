@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using System.Windows.Controls;
 using MVVMKit.Navigation;
 
 namespace MVVMKit.DI
@@ -131,7 +130,7 @@ namespace MVVMKit.DI
             ParameterInfo[] parameters = constructor.GetParameters();
             object[] args = new object[parameters.Length];
 
-            // 생성자 파라미터들을 모두 Resolve (재귀 호출)
+            // 생성자 파라미터들을 모두 Resolve
             for (int i = 0; i < parameters.Length; i++)
             {
                 args[i] = Resolve(parameters[i].ParameterType);

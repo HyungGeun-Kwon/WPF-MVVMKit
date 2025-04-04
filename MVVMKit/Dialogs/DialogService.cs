@@ -16,12 +16,12 @@ namespace MVVMKit.Dialogs
             _container = container;
         }
 
-        public void Register<TView>() where TView : Window
+        public void Register<TView>() where TView : FrameworkElement
         {
             Register<TView>(typeof(TView).Name);
         }
 
-        public void Register<TView>(string viewName) where TView : Window
+        public void Register<TView>(string viewName) where TView : FrameworkElement
         {
             _viewMap[viewName] = typeof(TView);
         }
@@ -44,13 +44,27 @@ namespace MVVMKit.Dialogs
             if (!_viewMap.TryGetValue(viewName, out Type viewType))
                 throw new ArgumentException($"'{viewName}' is not registered.");
 
-            var view = _container.Resolve(viewType);
+            var view = _container.Resolve(viewType); // Resolve 할 때 ViewModel이 연결되어있다면 자동 연결됨
             if (view is Window window)
             {
                 return window;
             }
 
-            throw new InvalidOperationException($"Resolved view '{viewName}' is not a Window. Actual type: {view.GetType().FullName}");
+            if (view is FrameworkElement fe) // UserControl, Page 등
+            {
+                var wrapper = new Window
+                {
+                    Content = fe,
+                    Width = fe.Width > 0 ? fe.Width : 400,
+                    Height = fe.Height > 0 ? fe.Height : 300,
+                    Title = viewName,
+                    WindowStartupLocation = WindowStartupLocation.CenterScreen
+                };
+
+                return wrapper;
+            }
+
+            throw new InvalidOperationException($"Resolved view '{viewName}' is not a FrameworkElement. Actual type: {view.GetType().FullName}");
         }
     }
 }

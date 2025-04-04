@@ -1,5 +1,4 @@
-﻿using System.Net.WebSockets;
-using System.Windows;
+﻿using System.Windows;
 using DITest.Services;
 using DITest.ViewModels;
 using DITest.Views;
@@ -28,9 +27,11 @@ namespace DITest
             // View ViewModel 연결
             ViewModelLocator.WireViewViewModel<MainWindow, MainViewModel>();
             ViewModelLocator.WireViewViewModel<DialogView, DialogViewModel>();
+            ViewModelLocator.WireViewViewModel<UserControlView, UserControlViewModel>();
 
             // DialogView
             dialogService.Register<DialogView>();
+            dialogService.Register<UserControlView>();
 
             base.OnStartup(e);
 
