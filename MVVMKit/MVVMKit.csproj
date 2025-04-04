@@ -49,7 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Commands\BindingCommand.cs" />
+    <Compile Include="Dialogs\DialogParameters.cs" />
     <Compile Include="Dialogs\DialogService.cs" />
+    <Compile Include="Dialogs\IDialogAware.cs" />
     <Compile Include="Dialogs\IDialogService.cs" />
     <Compile Include="DI\Container.cs" />
     <Compile Include="MVVM\NotifyBase.cs" />

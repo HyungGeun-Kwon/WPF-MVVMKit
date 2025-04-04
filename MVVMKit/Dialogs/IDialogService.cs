@@ -6,7 +6,7 @@ namespace MVVMKit.Dialogs
     {
         void Register<TView>() where TView : FrameworkElement;
         void Register<TView>(string viewName) where TView : FrameworkElement;
-        bool ShowDialog(string viewName);
-        void Show(string viewName);
+        bool ShowDialog(string viewName, DialogParameters parameters = null);
+        void Show(string viewName, DialogParameters parameters = null);
     }
 }

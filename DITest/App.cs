@@ -15,27 +15,48 @@ namespace DITest
         {
             // 기본
             Container = new Container();
+
+            ConfigureContainerDefault();
+            ConfigureContainer();
+            ConfigureViewModelLocator();
+            ConfigureDialogs();
+
+            base.OnStartup(e);
+
+            ShowMainWindow();
+        }
+
+        private void ConfigureContainerDefault()
+        {
             IDialogService dialogService = new DialogService(Container);
             Container.RegisterInstance(dialogService);
+        }
 
-            // 싱글톤 등록
+        private void ConfigureContainer()
+        {
             Container.RegisterSingleton<ICameraService, CameraService>();
             Container.RegisterSingleton<IIOService, IOService>();
             Container.RegisterSingleton<InspectionManager>();
             Container.RegisterSingleton<MainViewModel>();
+            Container.RegisterSingleton<UserControlView>();
+        }
 
-            // View ViewModel 연결
+        private void ConfigureViewModelLocator()
+        {
             ViewModelLocator.WireViewViewModel<MainWindow, MainViewModel>();
             ViewModelLocator.WireViewViewModel<DialogView, DialogViewModel>();
             ViewModelLocator.WireViewViewModel<UserControlView, UserControlViewModel>();
+        }
 
-            // DialogView
+        private void ConfigureDialogs()
+        {
+            var dialogService = Container.Resolve<IDialogService>();
             dialogService.Register<DialogView>();
             dialogService.Register<UserControlView>();
+        }
 
-            base.OnStartup(e);
-
-            // 시작.
+        private void ShowMainWindow()
+        {
             MainWindow = Container.Resolve<MainWindow>();
             MainWindow.Show();
         }

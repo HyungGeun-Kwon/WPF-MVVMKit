@@ -78,7 +78,7 @@ namespace MVVMKit.DI
         /// <summary>
         /// 타입 기반으로 등록된 인스턴스를 반환하거나 예외 발생
         /// </summary>
-        public object Resolve(Type type)
+        public object Resolve(Type type, bool autoWireRegisteredViewModel = true)
         {
             object returnValue;
 
@@ -99,16 +99,18 @@ namespace MVVMKit.DI
             }
 
             // FrameworkElement 이면서 ViewModelLocator에 매핑되어있다면 DataContext 등록
-            if (returnValue is FrameworkElement fe)
+            if (autoWireRegisteredViewModel)
             {
-                if (ViewModelLocator.IsMapping(type))
+                if (returnValue is FrameworkElement fe)
                 {
-                    Type viewModelType = ViewModelLocator.GetViewModelTypeForView(type);
-                    object viewModel = Resolve(viewModelType);
-                    fe.DataContext = viewModel;
+                    if (ViewModelLocator.IsMapping(type))
+                    {
+                        Type viewModelType = ViewModelLocator.GetViewModelTypeForView(type);
+                        object viewModel = Resolve(viewModelType);
+                        fe.DataContext = viewModel;
+                    }
                 }
             }
-
             return returnValue;
         }
 

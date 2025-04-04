@@ -8,6 +8,7 @@ namespace DITest.ViewModels
 {
     public class MainViewModel
     {
+        private int _userControlViewShowCount = 0;
         private readonly IDialogService _dialogService;
         private readonly InspectionManager _inspectionManager;
 
@@ -49,9 +50,13 @@ namespace DITest.ViewModels
         {
             _dialogService.ShowDialog("DialogView");
         }
+
         private void OnBtnUserControlViewShowClick()
         {
-            _dialogService.Show("UserControlView");
+            _userControlViewShowCount++;
+            var dp = new DialogParameters();
+            dp.Add("ShowCount", _userControlViewShowCount);
+            _dialogService.Show("UserControlView", dp);
         }
     }
 }

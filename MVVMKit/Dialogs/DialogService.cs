@@ -26,31 +26,53 @@ namespace MVVMKit.Dialogs
             _viewMap[viewName] = typeof(TView);
         }
 
-        public bool ShowDialog(string viewName)
+        public bool ShowDialog(string viewName, DialogParameters parameters = null)
         {
-            var view = CreateWindow(viewName);
-            bool? result = view.ShowDialog();
+            var window = CreateWindow(viewName, parameters);
+            if (window.DataContext is IDialogAware aware)
+            {
+                AttachCloseHandler(window, aware);
+            }
+            bool? result = window.ShowDialog();
             return result ?? false;
         }
 
-        public void Show(string viewName)
+        public void Show(string viewName, DialogParameters parameters = null)
         {
-            var view = CreateWindow(viewName);
-            view.Show(); // 비모달
+            var window = CreateWindow(viewName, parameters);
+            if (window.DataContext is IDialogAware aware)
+            {
+                AttachCloseHandler(window, aware);
+            }
+            window.Show(); // 비모달
         }
 
-        private Window CreateWindow(string viewName)
+        private void AttachCloseHandler(Window window, IDialogAware aware)
+        {
+            void Handler(object s, EventArgs e)
+            {
+                window.Closed -= Handler;
+                aware.OnDialogClosed();
+            }
+
+            window.Closed += Handler;
+        }
+
+        private Window CreateWindow(string viewName, DialogParameters parameters)
         {
             if (!_viewMap.TryGetValue(viewName, out Type viewType))
                 throw new ArgumentException($"'{viewName}' is not registered.");
 
-            var view = _container.Resolve(viewType); // Resolve 할 때 ViewModel이 연결되어있다면 자동 연결됨
-            if (view is Window window)
+            // ViewModel 자동 연결 Off로 View Resolve
+            // ViewModel이 IDialogAware인 경우 parameters를 전달해주기 위함
+            var view = _container.Resolve(viewType, false);
+            
+            Window window;
+            if (view is Window w)
             {
-                return window;
+                window = w;
             }
-
-            if (view is FrameworkElement fe) // UserControl, Page 등
+            else if (view is FrameworkElement fe) // UserControl, Page 등
             {
                 var wrapper = new Window
                 {
@@ -60,11 +82,28 @@ namespace MVVMKit.Dialogs
                     Title = viewName,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen
                 };
-
-                return wrapper;
+                window = wrapper;
+            }
+            else
+            {
+                throw new InvalidOperationException($"Resolved view '{viewName}' is not a FrameworkElement. Actual type: {view.GetType().FullName}");
             }
 
-            throw new InvalidOperationException($"Resolved view '{viewName}' is not a FrameworkElement. Actual type: {view.GetType().FullName}");
+            // ViewModel이 ViewModelLocator에 연결되어있다면 DataContext 연결
+            if (ViewModelLocator.IsMapping(viewType))
+            {
+                Type viewModelType = ViewModelLocator.GetViewModelTypeForView(viewType);
+                object viewModel = _container.Resolve(viewModelType);
+                window.DataContext = viewModel;
+
+                // ViewModel이 IDialogAware라면 parameters 전달
+                if (viewModel is IDialogAware dialogAware)
+                {
+                    dialogAware.OnDialogOpened(parameters ?? new DialogParameters());
+                }
+            }
+
+            return window;
         }
     }
 }

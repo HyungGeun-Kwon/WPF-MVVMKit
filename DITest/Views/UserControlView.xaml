@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Label VerticalAlignment="Center" HorizontalAlignment="Center" Content="{Binding Text}"/>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <Label Content="{Binding Text}"/>
+            <Label Content="{Binding ShowCount}"/>
+        </StackPanel>
     </Grid>
 </UserControl>
