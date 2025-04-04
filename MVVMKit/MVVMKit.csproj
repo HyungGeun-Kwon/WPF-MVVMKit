@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{55486065-701B-499A-97E2-48C79C988C1E}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>DITest</RootNamespace>
-    <AssemblyName>DITest</AssemblyName>
+    <ProjectGuid>{2FB12AE0-5932-436E-A7FA-5634161787EF}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>MVVMKit</RootNamespace>
+    <AssemblyName>MVVMKit</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -51,7 +48,12 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App.cs" />
+    <Compile Include="Commands\BindingCommand.cs" />
+    <Compile Include="Dialogs\DialogService.cs" />
+    <Compile Include="Dialogs\IDialogService.cs" />
+    <Compile Include="DI\Conainer.cs" />
+    <Compile Include="MVVM\NotifyBase.cs" />
+    <Compile Include="Navigation\ViewModelLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -65,18 +67,6 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Services\CameraService.cs" />
-    <Compile Include="Services\InspectionManager.cs" />
-    <Compile Include="Services\IOService.cs" />
-    <Compile Include="Starter.cs" />
-    <Compile Include="ViewModels\DialogViewModel.cs" />
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\DialogView.xaml.cs">
-      <DependentUpon>DialogView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -87,27 +77,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\DialogView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="DI\" />
-    <Folder Include="MVVMHelper\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MVVMKit\MVVMKit.csproj">
-      <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
-      <Name>MVVMKit</Name>
-    </ProjectReference>
+    <Folder Include="Extensions\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

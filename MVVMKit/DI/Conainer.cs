@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Windows;
+using System.Windows.Controls;
+using MVVMKit.Navigation;
 
-namespace DITest.DI
+namespace MVVMKit.DI
 {
     /// <summary>
     /// 의존성 주입(DI) 컨테이너
@@ -78,22 +81,36 @@ namespace DITest.DI
         /// </summary>
         public object Resolve(Type type)
         {
+            object returnValue;
+
             // RegisterInstance 또는 Singleton으로 등록된 경우
             if (_singletons.ContainsKey(type))
             {
-                return _singletons[type];
+                returnValue = _singletons[type];
             }
-
             // 등록된 생성자 팩토리가 있는 경우
-            if (_registrations.ContainsKey(type))
+            else if (_registrations.ContainsKey(type))
             {
-                return _registrations[type]();
+                returnValue = _registrations[type]();
+            }
+            // 등록되지 않은 타입을 자동으로 생성
+            else
+            {
+                returnValue = CreateWithConstructor(type);
             }
 
-            // 등록되지 않은 타입을 자동으로 생성하려면 아래 코드 주석 해제
-            // return CreateWithConstructor(type);
+            // FrameworkElement 이면서 ViewModelLocator에 매핑되어있다면 DataContext 등록
+            if (returnValue is FrameworkElement fe)
+            {
+                if (ViewModelLocator.IsMapping(type))
+                {
+                    Type viewModelType = ViewModelLocator.GetViewModelTypeForView(type);
+                    object viewModel = Resolve(viewModelType);
+                    fe.DataContext = viewModel;
+                }
+            }
 
-            throw new InvalidOperationException($"Type {type.FullName} is not registered.");
+            return returnValue;
         }
 
         /// <summary>

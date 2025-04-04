@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace DITest.MVVMHelper
+namespace MVVMKit.MVVM
 {
     public abstract class NotifyBase : INotifyPropertyChanged
     {

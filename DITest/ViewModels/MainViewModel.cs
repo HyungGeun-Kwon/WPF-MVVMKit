@@ -1,11 +1,14 @@
-﻿using System.Windows.Input;
-using DITest.MVVMHelper;
+﻿using System;
+using System.Windows.Input;
 using DITest.Services;
+using MVVMKit.Commands;
+using MVVMKit.Dialogs;
 
 namespace DITest.ViewModels
 {
     public class MainViewModel
     {
+        private readonly IDialogService _dialogService;
         private readonly InspectionManager _inspectionManager;
 
         public IIOService IOService { get; }
@@ -13,16 +16,20 @@ namespace DITest.ViewModels
 
         public ICommand BtnStartClickCommand { get; }
         public ICommand BtnStopClickCommand { get; }
+        public ICommand BtnDialogViewShowClickCommand { get; }
+        public ICommand BtnDialogViewShowDialogClickCommand { get; }
 
-
-        public MainViewModel(IIOService ioService, ICameraService cameraService, InspectionManager inspectionManager)
+        public MainViewModel(IDialogService dialogService, IIOService ioService, ICameraService cameraService, InspectionManager inspectionManager)
         {
+            _dialogService = dialogService;
             IOService = ioService;
             CameraService = cameraService;
             _inspectionManager = inspectionManager;
 
             BtnStartClickCommand = new BindingCommand(OnBtnStartClick);
             BtnStopClickCommand = new BindingCommand(OnBtnStopClick);
+            BtnDialogViewShowClickCommand = new BindingCommand(OnBtnDialogViewShowClick);
+            BtnDialogViewShowDialogClickCommand = new BindingCommand(OnBtnDialogViewShowDialogClick);
         }
 
         private void OnBtnStartClick()
@@ -32,6 +39,14 @@ namespace DITest.ViewModels
         private void OnBtnStopClick()
         {
             _inspectionManager.Stop();
+        }
+        private void OnBtnDialogViewShowClick()
+        {
+            _dialogService.Show("DialogView");
+        }
+        private void OnBtnDialogViewShowDialogClick()
+        {
+            _dialogService.ShowDialog("DialogView");
         }
     }
 }

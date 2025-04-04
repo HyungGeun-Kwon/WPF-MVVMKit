@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Input;
 
-namespace DITest.MVVMHelper
+namespace MVVMKit.Commands
 {
     public class BindingCommand : ICommand
     {

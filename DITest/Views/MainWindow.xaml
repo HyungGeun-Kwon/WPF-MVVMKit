@@ -8,10 +8,18 @@
         Title="MainWindow" Height="450" Width="800">
     <Grid>
         <StackPanel>
-            <Label Content="{Binding IOService.IOServiceTestText}"/>
+            <Label Content="{Binding IOService.IOServiceTestText}">
+                <Label.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Test1" Command="{Binding TestCommand}"/>
+                    </ContextMenu>
+                </Label.ContextMenu>
+            </Label>
             <Label Content="{Binding CameraService.CameraServiceTestText}"/>
             <Button Content="Start" Command="{Binding BtnStartClickCommand}"/>
             <Button Content="Stop" Command="{Binding BtnStopClickCommand}"/>
+            <Button Content="DialogViewShow" Command="{Binding BtnDialogViewShowClickCommand}"/>
+            <Button Content="DialogViewShowDialog" Command="{Binding BtnDialogViewShowDialogClickCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

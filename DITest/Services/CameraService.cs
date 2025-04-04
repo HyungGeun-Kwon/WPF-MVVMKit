@@ -1,4 +1,4 @@
-﻿using DITest.MVVMHelper;
+﻿using MVVMKit.MVVM;
 
 namespace DITest.Services
 {
