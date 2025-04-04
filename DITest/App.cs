@@ -13,7 +13,6 @@ namespace DITest
         public static Container Container;
         protected override void OnStartup(StartupEventArgs e)
         {
-            // 기본
             Container = new Container();
 
             ConfigureContainerDefault();
