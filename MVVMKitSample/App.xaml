@@ -1,0 +1,5 @@
+﻿<mvvmkit:MVVMKitApplication x:Class="MVVMKitSample.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:mvvmkit="clr-namespace:MVVMKit.App;assembly=MVVMKit"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+</mvvmkit:MVVMKitApplication>

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Windows;
 
-namespace MVVMKit.Navigation
+namespace MVVMKit.MVVM
 {
     public static class ViewModelLocator
     {

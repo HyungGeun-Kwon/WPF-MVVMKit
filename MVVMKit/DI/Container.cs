@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Windows;
-using MVVMKit.Navigation;
+using MVVMKit.MVVM;
+using MVVMKit.Regions;
 
 namespace MVVMKit.DI
 {
@@ -12,13 +13,58 @@ namespace MVVMKit.DI
     /// - Singleton, Transient, Instance 등록 지원
     /// - 생성자 주입 기반 자동 생성 지원
     /// </summary>
-    public class Container
+    public class Container : IContainerProvider, IContainerRegistry
     {
         // 타입별 생성자 함수 등록
         private readonly Dictionary<Type, Func<object>> _registrations = new Dictionary<Type, Func<object>>();
 
         // 싱글톤 인스턴스 보관소 (한 번만 생성된 객체 저장)
         private readonly Dictionary<Type, object> _singletons = new Dictionary<Type, object>();
+
+        // Key - Type 매핑
+        private readonly Dictionary<string, Type> _namedTypes = new Dictionary<string, Type>();
+
+        /// <summary>
+        /// 현재는 단순 View와 ViewModel을 싱글톤으로 등록해줌.
+        /// Navigation 관련 기능은 구현 전
+        /// </summary>
+        public void RegisterForNavigation<TView, TViewModel>(string viewKey = null, string viewModelKey = null)
+            where TView : FrameworkElement
+            where TViewModel : class, INavigationAware
+        {
+            if (viewKey == null) viewKey = typeof(TView).Name;
+
+            RegisterSingleton<TView>(viewKey);
+
+            if (viewModelKey == null) RegisterSingleton<TViewModel>();
+            else RegisterSingleton<TViewModel>(viewModelKey);
+
+            ViewModelLocator.WireViewViewModel<TView, TViewModel>();
+        }
+
+        public void RegisterSingleton<TImplementation>(string key) where TImplementation : class
+        {
+            _namedTypes[key] = typeof(TImplementation);
+            RegisterSingleton<TImplementation>();
+        }
+
+        public void RegisterSingleton<TInterface, TImplementation>(string key) where TImplementation : class, TInterface
+        {
+            _namedTypes[key] = typeof(TInterface);
+            RegisterSingleton<TInterface, TImplementation>();
+        }
+
+        public void RegisterTransient<TInterface, TImplementation>(string key) where TImplementation : class, TInterface
+        {
+            _namedTypes[key] = typeof(TInterface);
+            RegisterTransient<TInterface, TImplementation>();
+        }
+
+        /// <summary>
+        /// 구현체만 주어졌을 때 자기 자신을 싱글톤으로 등록
+        /// </summary>
+        public void RegisterSingleton<TImplementation>() where TImplementation : class
+            => RegisterSingleton<TImplementation, TImplementation>();
 
         /// <summary>
         /// 지정한 인터페이스/구현체 타입을 싱글톤으로 등록.
@@ -41,12 +87,6 @@ namespace MVVMKit.DI
         }
 
         /// <summary>
-        /// 구현체만 주어졌을 때 자기 자신을 싱글톤으로 등록
-        /// </summary>
-        public void RegisterSingleton<TImplementation>() where TImplementation : class
-            => RegisterSingleton<TImplementation, TImplementation>();
-
-        /// <summary>
         /// 외부에서 생성한 인스턴스를 직접 싱글톤으로 등록
         /// </summary>
         public void RegisterInstance<TInterface>(TInterface instance)
@@ -65,6 +105,19 @@ namespace MVVMKit.DI
                 // 매번 Resolve할 때마다 새 인스턴스 생성
                 return CreateWithConstructor(typeof(TImplementation));
             };
+        }
+
+        public object Resolve(string key)
+        {
+            if (!_namedTypes.TryGetValue(key, out var type))
+                throw new InvalidOperationException($"Type with key '{key}' not registered.");
+
+            return Resolve(type);
+        }
+
+        public T Resolve<T>(string key)
+        {
+            return (T)Resolve(key);
         }
 
         /// <summary>

@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Windows;
 using MVVMKit.DI;
-using MVVMKit.Navigation;
+using MVVMKit.MVVM;
 
 namespace MVVMKit.Dialogs
 {
-    public class DialogService : IDialogService
+    public class DialogService : IDialogService, IDialogRegistry
     {
         private readonly Dictionary<string, Type> _viewMap = new Dictionary<string, Type>();
-        private readonly Container _container;
+        private readonly IContainerProvider _container;
 
-        public DialogService(Container container)
+        public DialogService(IContainerProvider container)
         {
             _container = container;
         }

@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{2FB12AE0-5932-436E-A7FA-5634161787EF}</ProjectGuid>
+    <ProjectGuid>{E1B9D6EF-7189-4850-881E-1DB9E32DB1E4}</ProjectGuid>
     <OutputType>library</OutputType>
-    <RootNamespace>MVVMKit</RootNamespace>
-    <AssemblyName>MVVMKit</AssemblyName>
+    <RootNamespace>MVVMKitSample.DialogA</RootNamespace>
+    <AssemblyName>MVVMKitSample.DialogA</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -48,18 +48,6 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="App\MVVMKitApplication.cs" />
-    <Compile Include="Commands\BindingCommand.cs" />
-    <Compile Include="Dialogs\DialogParameters.cs" />
-    <Compile Include="Dialogs\DialogService.cs" />
-    <Compile Include="Dialogs\IDialogAware.cs" />
-    <Compile Include="Dialogs\IDialogRegistry.cs" />
-    <Compile Include="Dialogs\IDialogService.cs" />
-    <Compile Include="DI\Container.cs" />
-    <Compile Include="DI\IContainerProvider.cs" />
-    <Compile Include="DI\IContainerRegistry.cs" />
-    <Compile Include="MVVM\NotifyBase.cs" />
-    <Compile Include="MVVM\ViewModelLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -73,11 +61,10 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="Regions\INavigationAware.cs" />
-    <Compile Include="Regions\IRegionRegistry.cs" />
-    <Compile Include="Regions\IRegionManager.cs" />
-    <Compile Include="Regions\RegionManager.cs" />
-    <Compile Include="Regions\RegionManagerAttached.cs" />
+    <Compile Include="ViewModels\ADialogViewModel.cs" />
+    <Compile Include="Views\ADialog.xaml.cs">
+      <DependentUpon>ADialog.xaml</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -87,6 +74,17 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Page Include="Views\ADialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MVVMKit\MVVMKit.csproj">
+      <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
+      <Name>MVVMKit</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

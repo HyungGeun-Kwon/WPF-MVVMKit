@@ -4,7 +4,7 @@ using DITest.ViewModels;
 using DITest.Views;
 using MVVMKit.DI;
 using MVVMKit.Dialogs;
-using MVVMKit.Navigation;
+using MVVMKit.MVVM;
 
 namespace DITest
 {
