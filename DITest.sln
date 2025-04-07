@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.35826.135
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DITest", "DITest\DITest.csproj", "{55486065-701B-499A-97E2-48C79C988C1E}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKit", "MVVMKit\MVVMKit.csproj", "{2FB12AE0-5932-436E-A7FA-5634161787EF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{398A2404-A4DD-43B0-A520-9CD8DAF99D56}"
@@ -29,10 +27,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{55486065-701B-499A-97E2-48C79C988C1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{55486065-701B-499A-97E2-48C79C988C1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{55486065-701B-499A-97E2-48C79C988C1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{55486065-701B-499A-97E2-48C79C988C1E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2FB12AE0-5932-436E-A7FA-5634161787EF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2FB12AE0-5932-436E-A7FA-5634161787EF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2FB12AE0-5932-436E-A7FA-5634161787EF}.Release|Any CPU.ActiveCfg = Release|Any CPU
