@@ -10,14 +10,14 @@ namespace MVVMKit.Regions
     public class RegionManager : IRegionManager
     {
         private readonly Dictionary<string, ContentControl> _regions = new Dictionary<string, ContentControl>();
-        private readonly IContainerProvider _container;
+        private readonly Container _container;
 
-        public RegionManager(IContainerProvider container)
+        public RegionManager(Container container)
         {
             _container = container;
         }
 
-        public void Register(string regionName, ContentControl regionControl)
+        internal void RegisterRegionName(string regionName, ContentControl regionControl)
         {
             if (!_regions.ContainsKey(regionName))
             {
@@ -26,26 +26,25 @@ namespace MVVMKit.Regions
         }
         public void RequestNavigate(string regionName, string viewKey)
         {
-            RequestNavigate(regionName, _container.Resolve(viewKey));
+            Type viewType = _container.GetNavigationViewType(viewKey);
+            RequestNavigate(regionName, viewType);
         }
         public void RequestNavigate(string regionName, Type viewType)
         {
-            RequestNavigate(regionName, _container.Resolve(viewType));
-        }
-        private void RequestNavigate(string regionName, object view)
-        {
-            var viewType = view.GetType();
             if (!_regions.TryGetValue(regionName, out var target))
                 throw new ArgumentException($"Region '{regionName}' not found.");
+
 
             // 현재 View/ViewModel이 INavigationAware면 OnNavigatedFrom 호출
             if (target.Content is FrameworkElement currentElement)
             {
-                if (currentElement.DataContext is INavigationAware currentAware)
+                if (currentElement.DataContext != null && currentElement.DataContext is INavigationAware currentAware)
                 {
                     currentAware.OnNavigatedFrom();
                 }
             }
+
+            var view = _container.Resolve(viewType);
 
             if (!(view is FrameworkElement fe))
             {
@@ -54,13 +53,13 @@ namespace MVVMKit.Regions
 
             if (ViewModelLocator.IsMapping(viewType))
             {
-                var vmType = ViewModelLocator.GetViewModelTypeForView(viewType);
-                object viewModel = _container.Resolve(vmType);
+                Type viewModelType = ViewModelLocator.GetViewModelTypeForView(viewType);
+                object viewModel = _container.Resolve(viewModelType);
                 fe.DataContext = viewModel;
 
-                if (viewModel is INavigationAware aware)
+                if (viewModel is INavigationAware nowAware)
                 {
-                    aware.OnNavigatedTo();
+                    nowAware.OnNavigatedTo();
                 }
             }
 

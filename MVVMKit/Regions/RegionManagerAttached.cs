@@ -29,8 +29,8 @@ namespace MVVMKit.Regions
             {
                 if (Application.Current is MVVMKitApplication app)
                 {
-                    var regionManager = app.Container.Resolve<IRegionManager>();
-                    regionManager.Register(regionName, control);
+                    var regionManager = (RegionManager)app.Container.Resolve<IRegionManager>();
+                    regionManager.RegisterRegionName(regionName, control);
                 }
             }
         }

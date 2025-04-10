@@ -1,18 +1,18 @@
 ﻿using System.Windows;
 using MVVMKit.App;
 using MVVMKit.DI;
-using MVVMKit.Dialogs;
 using MVVMKit.MVVM;
 using MVVMKitSample.Application.ServiceA;
-using MVVMKitSample.DialogA.ViewModels;
-using MVVMKitSample.DialogA.Views;
+using MVVMKitSample.UI.DialogA.ViewModels;
+using MVVMKitSample.UI.DialogA.Views;
 using MVVMKitSample.Infrastructure.AService;
-using MVVMKitSample.ViewA.ViewModels;
-using MVVMKitSample.ViewA.Views;
-using MVVMKitSample.ViewB.ViewModels;
-using MVVMKitSample.ViewB.Views;
+using MVVMKitSample.UI.ViewA.ViewModels;
+using MVVMKitSample.UI.ViewA.Views;
+using MVVMKitSample.UI.ViewB.ViewModels;
+using MVVMKitSample.UI.ViewB.Views;
 using MVVMKitSample.ViewModels;
 using MVVMKitSample.Views;
+using MVVMKitSample.UI.Core.Names;
 
 namespace MVVMKitSample
 {
@@ -29,22 +29,28 @@ namespace MVVMKitSample
         private void WireDataContext()
         {
             ViewModelLocator.WireViewViewModel<MainWindow, MainViewModel>();
-            ViewModelLocator.WireViewViewModel<ADialog, ADialogViewModel>();
         }
-        protected override Window CreateShell()
+        protected override Window CreateShell(IFrameworkContainerProvider frameworkContainerProvider)
         {
-            return Container.Resolve<MainWindow>();
+            // IContainerProvider의 Resolve는 ViewModel연결을 자동으로 해주지 않음.
+            return frameworkContainerProvider.ResolveFrameworkElement<MainWindow>();
         }
         protected override void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterSingleton<IServiceA, ServiceA>();
 
-            containerRegistry.RegisterForNavigation<AView, AViewModel>();
-            containerRegistry.RegisterForNavigation<BView, BViewModel>();
-        }
-        protected override void RegisterDialogs(IDialogRegistry dialogRegistry)
-        {
-            dialogRegistry.Register<ADialog>("ADialog");
+            containerRegistry.RegisterDialog<ADialog, ADialogViewModel>(ViewNames.ADialog);
+            containerRegistry.RegisterForNavigation<AView, AViewModel>(ViewNames.AView);
+            containerRegistry.RegisterForNavigation<BView, BViewModel>(ViewNames.BView);
+
+            // 위 아래 동일
+
+            // containerRegistry.RegisterDialog<ADialog>(ViewNames.ADialog);
+            // containerRegistry.RegisterDialog<AView>(ViewNames.AView);
+            // containerRegistry.RegisterDialog<BView>(ViewNames.BView);
+            // ViewModelLocator.WireViewViewModel<ADialog, ADialogViewModel>();
+            // ViewModelLocator.WireViewViewModel<AView, AViewModel>();
+            // ViewModelLocator.WireViewViewModel<BView, BViewModel>();
         }
     }
 }

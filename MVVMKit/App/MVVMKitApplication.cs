@@ -9,13 +9,11 @@ namespace MVVMKit.App
     {
         public IContainerProvider Container;
         private IContainerRegistry _containerRegistry;
-        private IDialogRegistry _dialogRegistry;
+        private IFrameworkContainerProvider _frameworkContainerProvider;
 
-        protected abstract Window CreateShell();
+        protected abstract Window CreateShell(IFrameworkContainerProvider frameworkContainerProvider);
 
         protected abstract void RegisterTypes(IContainerRegistry containerRegistry);
-
-        protected abstract void RegisterDialogs(IDialogRegistry dialogRegistry);
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -30,32 +28,37 @@ namespace MVVMKit.App
         }
         private void Initialize()
         {
-            var container = new Container();
-            Container = container;
-            _containerRegistry = container;
-            ConfigureContainerDefault();
-            RegisterTypes(_containerRegistry);
-            RegisterDialogs(_dialogRegistry);
+            ContainerDefaultSetting();
 
-            var shell = CreateShell();
-            if (shell != null)
-            {
-                MainWindow = shell;
-            }
+            RegisterTypes(_containerRegistry);
+
+            SettingMainWindow();
         }
         private void OnInitialized()
         {
             MainWindow?.Show();
         }
-
-        private void ConfigureContainerDefault()
+        private void ContainerDefaultSetting()
         {
-            var dialogService = new DialogService(Container);
-            var regionManager = new RegionManager(Container);
+            var container = new Container();
+            Container = container;
+            _containerRegistry = container;
+            _frameworkContainerProvider = container;
 
+            var dialogService = new DialogService(container);
+            var regionManager = new RegionManager(container);
             _containerRegistry.RegisterInstance<IDialogService>(dialogService);
             _containerRegistry.RegisterInstance<IRegionManager>(regionManager);
-            _dialogRegistry = dialogService;
+            _containerRegistry.RegisterInstance<IContainerProvider>(container);
+            _containerRegistry.RegisterInstance<IFrameworkContainerProvider>(container);
+        }
+        private void SettingMainWindow()
+        {
+            var shell = CreateShell(_frameworkContainerProvider);
+            if (shell != null)
+            {
+                MainWindow = shell;
+            }
         }
     }
 }

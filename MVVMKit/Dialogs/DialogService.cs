@@ -1,34 +1,22 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Windows;
 using MVVMKit.DI;
 using MVVMKit.MVVM;
 
 namespace MVVMKit.Dialogs
 {
-    public class DialogService : IDialogService, IDialogRegistry
+    public class DialogService : IDialogService
     {
-        private readonly Dictionary<string, Type> _viewMap = new Dictionary<string, Type>();
-        private readonly IContainerProvider _container;
+        private readonly Container _container;
 
-        public DialogService(IContainerProvider container)
+        public DialogService(Container container)
         {
             _container = container;
         }
 
-        public void Register<TView>() where TView : FrameworkElement
+        public bool ShowDialog(string viewKey, DialogParameters parameters = null)
         {
-            Register<TView>(typeof(TView).Name);
-        }
-
-        public void Register<TView>(string viewName) where TView : FrameworkElement
-        {
-            _viewMap[viewName] = typeof(TView);
-        }
-
-        public bool ShowDialog(string viewName, DialogParameters parameters = null)
-        {
-            var window = CreateWindow(viewName, parameters);
+            var window = CreateWindow(viewKey, parameters);
             if (window.DataContext is IDialogAware aware)
             {
                 AttachCloseHandler(window, aware);
@@ -37,9 +25,9 @@ namespace MVVMKit.Dialogs
             return result ?? false;
         }
 
-        public void Show(string viewName, DialogParameters parameters = null)
+        public void Show(string viewKey, DialogParameters parameters = null)
         {
-            var window = CreateWindow(viewName, parameters);
+            var window = CreateWindow(viewKey, parameters);
             if (window.DataContext is IDialogAware aware)
             {
                 AttachCloseHandler(window, aware);
@@ -58,15 +46,13 @@ namespace MVVMKit.Dialogs
             window.Closed += Handler;
         }
 
-        private Window CreateWindow(string viewName, DialogParameters parameters)
+        private Window CreateWindow(string viewKey, DialogParameters parameters)
         {
-            if (!_viewMap.TryGetValue(viewName, out Type viewType))
-                throw new ArgumentException($"'{viewName}' is not registered.");
-
             // ViewModel 자동 연결 Off로 View Resolve
             // ViewModel이 IDialogAware인 경우 parameters를 전달해주기 위함
-            var view = _container.Resolve(viewType, false);
-            
+            Type viewType = _container.GetDialogViewType(viewKey);
+            var view = _container.Resolve(viewType);
+
             Window window;
             if (view is Window w)
             {
@@ -79,14 +65,14 @@ namespace MVVMKit.Dialogs
                     Content = fe,
                     Width = fe.Width > 0 ? fe.Width : 400,
                     Height = fe.Height > 0 ? fe.Height : 300,
-                    Title = viewName,
+                    Title = viewKey,
                     WindowStartupLocation = WindowStartupLocation.CenterScreen
                 };
                 window = wrapper;
             }
             else
             {
-                throw new InvalidOperationException($"Resolved view '{viewName}' is not a FrameworkElement. Actual type: {view.GetType().FullName}");
+                throw new InvalidOperationException($"Resolved view '{viewKey}' is not a FrameworkElement. Actual type: {view.GetType().FullName}");
             }
 
             // ViewModel이 ViewModelLocator에 연결되어있다면 DataContext 연결

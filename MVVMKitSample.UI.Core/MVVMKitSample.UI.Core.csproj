@@ -4,19 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{A5D05A4A-3269-42C1-8B4B-042CB1A87490}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
-    <RootNamespace>MVVMKitSample</RootNamespace>
-    <AssemblyName>MVVMKitSample</AssemblyName>
+    <ProjectGuid>{A4598871-B63E-40C8-9950-F58332E6CDFB}</ProjectGuid>
+    <OutputType>library</OutputType>
+    <RootNamespace>MVVMKitSample.UI.Core</RootNamespace>
+    <AssemblyName>MVVMKitSample.UI.Core</AssemblyName>
     <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WarningLevel>4</WarningLevel>
-    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -26,7 +24,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -35,9 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
-      <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.135\lib\net462\Microsoft.Xaml.Behaviors.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -54,20 +48,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
-      <DependentUpon>App.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
+    <Compile Include="Enums\ERegionType.cs" />
+    <Compile Include="Enums\EViewType.cs" />
+    <Compile Include="Names\RegionNames.cs" />
+    <Compile Include="Names\ViewNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -85,50 +69,10 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MVVMKitSample.Application\MVVMKitSample.Application.csproj">
-      <Project>{578A9709-266F-4241-A803-AAD3804DC4F8}</Project>
-      <Name>MVVMKitSample.Application</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKitSample.UI.Core\MVVMKitSample.UI.Core.csproj">
-      <Project>{A4598871-B63E-40C8-9950-F58332E6CDFB}</Project>
-      <Name>MVVMKitSample.UI.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKitSample.UI.DialogA\MVVMKitSample.UI.DialogA.csproj">
-      <Project>{e1b9d6ef-7189-4850-881e-1db9e32db1e4}</Project>
-      <Name>MVVMKitSample.UI.DialogA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKitSample.Infrastructure\MVVMKitSample.Infrastructure.csproj">
-      <Project>{A80B029C-3384-4E6D-B7F0-2094AA621C6A}</Project>
-      <Name>MVVMKitSample.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKitSample.UI.ViewA\MVVMKitSample.UI.ViewA.csproj">
-      <Project>{7f571d8f-dd62-469d-b97d-029ed6298ce6}</Project>
-      <Name>MVVMKitSample.UI.ViewA</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKitSample.UI.ViewB\MVVMKitSample.UI.ViewB.csproj">
-      <Project>{cd681ac8-d229-4538-8bdf-5865df9700e1}</Project>
-      <Name>MVVMKitSample.UI.ViewB</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\MVVMKit\MVVMKit.csproj">
-      <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
-      <Name>MVVMKit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="Views\MainWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

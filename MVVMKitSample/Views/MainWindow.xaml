@@ -3,8 +3,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:MVVMKitSample.Views"
         xmlns:regions="clr-namespace:MVVMKit.Regions;assembly=MVVMKit"
+        xmlns:uiCoreName="clr-namespace:MVVMKitSample.UI.Core.Names;assembly=MVVMKitSample.UI.Core"
         xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
@@ -23,9 +23,12 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
-            <ContentControl regions:RegionManagerAttached.RegionName="RegionA"/>
-            <ContentControl Grid.Column="1" regions:RegionManagerAttached.RegionName="RegionB"/>
-            <Button Grid.Row="1" Grid.ColumnSpan="2" Content="ShowADialog" Command="{Binding ShowADialogCommand}"/>
+            <ContentControl regions:RegionManagerAttached.RegionName="{x:Static uiCoreName:RegionNames.LeftRegion}"/>
+            <ContentControl Grid.Column="1" regions:RegionManagerAttached.RegionName="{x:Static uiCoreName:RegionNames.RightRegion}"/>
+            <StackPanel Grid.Row="1" Grid.ColumnSpan="2">
+                <Button Margin="10" Content="Switch A/B View" Command="{Binding SwitchViewCommand}"/>
+                <Button Margin="10" Content="Show ADialog" Command="{Binding ShowADialogCommand}"/>
+            </StackPanel>
         </Grid>
     </Grid>
 </Window>

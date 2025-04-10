@@ -53,11 +53,11 @@
     <Compile Include="Dialogs\DialogParameters.cs" />
     <Compile Include="Dialogs\DialogService.cs" />
     <Compile Include="Dialogs\IDialogAware.cs" />
-    <Compile Include="Dialogs\IDialogRegistry.cs" />
     <Compile Include="Dialogs\IDialogService.cs" />
     <Compile Include="DI\Container.cs" />
     <Compile Include="DI\IContainerProvider.cs" />
     <Compile Include="DI\IContainerRegistry.cs" />
+    <Compile Include="DI\IFrameworkContainerProvider.cs" />
     <Compile Include="MVVM\NotifyBase.cs" />
     <Compile Include="MVVM\ViewModelLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -74,8 +74,8 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
     <Compile Include="Regions\INavigationAware.cs" />
-    <Compile Include="Regions\IRegionRegistry.cs" />
     <Compile Include="Regions\IRegionManager.cs" />
+    <Compile Include="Regions\Region.cs" />
     <Compile Include="Regions\RegionManager.cs" />
     <Compile Include="Regions\RegionManagerAttached.cs" />
     <EmbeddedResource Include="Properties\Resources.resx">
