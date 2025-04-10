@@ -7,21 +7,21 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKit", "MVVMKit\MVVMKit.
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Example", "Example", "{398A2404-A4DD-43B0-A520-9CD8DAF99D56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample", "MVVMKitSample\MVVMKitSample.csproj", "{A5D05A4A-3269-42C1-8B4B-042CB1A87490}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample", "Example\MVVMKitSample\MVVMKitSample.csproj", "{A5D05A4A-3269-42C1-8B4B-042CB1A87490}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.ViewA", "MVVMKitSample.UI.ViewA\MVVMKitSample.UI.ViewA.csproj", "{7F571D8F-DD62-469D-B97D-029ED6298CE6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.ViewA", "Example\UI\MVVMKitSample.UI.ViewA\MVVMKitSample.UI.ViewA.csproj", "{7F571D8F-DD62-469D-B97D-029ED6298CE6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.ViewB", "MVVMKitSample.UI.ViewB\MVVMKitSample.UI.ViewB.csproj", "{CD681AC8-D229-4538-8BDF-5865DF9700E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.ViewB", "Example\UI\MVVMKitSample.UI.ViewB\MVVMKitSample.UI.ViewB.csproj", "{CD681AC8-D229-4538-8BDF-5865DF9700E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.Application", "MVVMKitSample.Application\MVVMKitSample.Application.csproj", "{578A9709-266F-4241-A803-AAD3804DC4F8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.Application", "Example\MVVMKitSample.Application\MVVMKitSample.Application.csproj", "{578A9709-266F-4241-A803-AAD3804DC4F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.Infrastructure", "MVVMKitSample.Infrastructure\MVVMKitSample.Infrastructure.csproj", "{A80B029C-3384-4E6D-B7F0-2094AA621C6A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.Infrastructure", "Example\MVVMKitSample.Infrastructure\MVVMKitSample.Infrastructure.csproj", "{A80B029C-3384-4E6D-B7F0-2094AA621C6A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{18CB1F0D-30CC-4CE8-A9A9-49C5145CA95C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.DialogA", "MVVMKitSample.UI.DialogA\MVVMKitSample.UI.DialogA.csproj", "{E1B9D6EF-7189-4850-881E-1DB9E32DB1E4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.DialogA", "Example\UI\MVVMKitSample.UI.DialogA\MVVMKitSample.UI.DialogA.csproj", "{E1B9D6EF-7189-4850-881E-1DB9E32DB1E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.Core", "MVVMKitSample.UI.Core\MVVMKitSample.UI.Core.csproj", "{A4598871-B63E-40C8-9950-F58332E6CDFB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVVMKitSample.UI.Core", "Example\UI\MVVMKitSample.UI.Core\MVVMKitSample.UI.Core.csproj", "{A4598871-B63E-40C8-9950-F58332E6CDFB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -81,7 +81,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MVVMKit\MVVMKit.csproj">
+    <ProjectReference Include="..\..\..\MVVMKit\MVVMKit.csproj">
       <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
       <Name>MVVMKit</Name>
     </ProjectReference>
