@@ -5,7 +5,7 @@ using MVVMKit.MVVM;
 using MVVMKitSample.Application.ServiceA;
 using MVVMKitSample.UI.DialogA.ViewModels;
 using MVVMKitSample.UI.DialogA.Views;
-using MVVMKitSample.Infrastructure.AService;
+using MVVMKitSample.Infrastructure.ServiceA;
 using MVVMKitSample.UI.ViewA.ViewModels;
 using MVVMKitSample.UI.ViewA.Views;
 using MVVMKitSample.UI.ViewB.ViewModels;

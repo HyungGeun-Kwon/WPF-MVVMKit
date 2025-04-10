@@ -1,6 +1,6 @@
 ﻿using MVVMKitSample.Application.ServiceA;
 
-namespace MVVMKitSample.Infrastructure.AService
+namespace MVVMKitSample.Infrastructure.ServiceA
 {
     public class ServiceA : IServiceA
     {
