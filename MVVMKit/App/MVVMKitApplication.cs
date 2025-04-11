@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using MVVMKit.DI;
 using MVVMKit.Dialogs;
+using MVVMKit.Modules;
 using MVVMKit.Regions;
 
 namespace MVVMKit.App
@@ -14,6 +15,8 @@ namespace MVVMKit.App
         protected abstract Window CreateShell(IFrameworkContainerProvider frameworkContainerProvider);
 
         protected abstract void RegisterTypes(IContainerRegistry containerRegistry);
+
+        protected abstract void AddModule(IModuleCatalog moduleCatalog);
 
         protected override void OnStartup(StartupEventArgs e)
         {
@@ -32,12 +35,11 @@ namespace MVVMKit.App
 
             RegisterTypes(_containerRegistry);
 
+            RegisterModules();
+
             SettingMainWindow();
         }
-        private void OnInitialized()
-        {
-            MainWindow?.Show();
-        }
+
         private void ContainerDefaultSetting()
         {
             var container = new Container();
@@ -52,6 +54,12 @@ namespace MVVMKit.App
             _containerRegistry.RegisterInstance<IContainerProvider>(container);
             _containerRegistry.RegisterInstance<IFrameworkContainerProvider>(container);
         }
+        private void RegisterModules()
+        {
+            IModuleCatalog moduleCatalog = new ModuleCatalog();
+            AddModule(moduleCatalog);
+            moduleCatalog.InitializeModules(_containerRegistry, Container);
+        }
         private void SettingMainWindow()
         {
             var shell = CreateShell(_frameworkContainerProvider);
@@ -59,6 +67,10 @@ namespace MVVMKit.App
             {
                 MainWindow = shell;
             }
+        }
+        private void OnInitialized()
+        {
+            MainWindow?.Show();
         }
     }
 }

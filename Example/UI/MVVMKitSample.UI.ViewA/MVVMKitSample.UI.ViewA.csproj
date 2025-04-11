@@ -48,6 +48,7 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\ViewAModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -88,6 +89,10 @@
     <ProjectReference Include="..\..\..\MVVMKit\MVVMKit.csproj">
       <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
       <Name>MVVMKit</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MVVMKitSample.UI.Core\MVVMKitSample.UI.Core.csproj">
+      <Project>{A4598871-B63E-40C8-9950-F58332E6CDFB}</Project>
+      <Name>MVVMKitSample.UI.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

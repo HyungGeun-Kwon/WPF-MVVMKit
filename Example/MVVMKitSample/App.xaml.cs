@@ -3,16 +3,17 @@ using MVVMKit.App;
 using MVVMKit.DI;
 using MVVMKit.MVVM;
 using MVVMKitSample.Application.ServiceA;
-using MVVMKitSample.UI.DialogA.ViewModels;
-using MVVMKitSample.UI.DialogA.Views;
 using MVVMKitSample.Infrastructure.ServiceA;
-using MVVMKitSample.UI.ViewA.ViewModels;
-using MVVMKitSample.UI.ViewA.Views;
-using MVVMKitSample.UI.ViewB.ViewModels;
-using MVVMKitSample.UI.ViewB.Views;
 using MVVMKitSample.ViewModels;
 using MVVMKitSample.Views;
+using MVVMKit.Modules;
+using MVVMKitSample.UI.ViewA.Views;
 using MVVMKitSample.UI.Core.Names;
+using MVVMKitSample.UI.ViewB.Views;
+using MVVMKitSample.UI.DialogA.Views;
+using MVVMKitSample.UI.DialogA.Modules;
+using MVVMKitSample.UI.ViewA.Modules;
+using MVVMKitSample.UI.ViewB.Modules;
 
 namespace MVVMKitSample
 {
@@ -39,18 +40,27 @@ namespace MVVMKitSample
         {
             containerRegistry.RegisterSingleton<IServiceA, ServiceA>();
 
-            containerRegistry.RegisterDialog<ADialog, ADialogViewModel>(ViewNames.ADialog);
-            containerRegistry.RegisterForNavigation<AView, AViewModel>(ViewNames.AView);
-            containerRegistry.RegisterForNavigation<BView, BViewModel>(ViewNames.BView);
+            // 모듈을 사용하지 않고 Register 할 경우
+
+            // containerRegistry.RegisterDialog<ADialog, ADialogViewModel>(ViewNames.ADialog);
+            // containerRegistry.RegisterForNavigation<AView, AViewModel>(ViewNames.AView);
+            // containerRegistry.RegisterForNavigation<BView, BViewModel>(ViewNames.BView);
 
             // 위 아래 동일
 
             // containerRegistry.RegisterDialog<ADialog>(ViewNames.ADialog);
-            // containerRegistry.RegisterDialog<AView>(ViewNames.AView);
-            // containerRegistry.RegisterDialog<BView>(ViewNames.BView);
+            // containerRegistry.RegisterForNavigation<AView>(ViewNames.AView);
+            // containerRegistry.RegisterForNavigation<BView>(ViewNames.BView);
             // ViewModelLocator.WireViewViewModel<ADialog, ADialogViewModel>();
             // ViewModelLocator.WireViewViewModel<AView, AViewModel>();
             // ViewModelLocator.WireViewViewModel<BView, BViewModel>();
+        }
+        protected override void AddModule(IModuleCatalog moduleCatalog)
+        {
+            // 모듈을 사용해 Register 할 경우
+            moduleCatalog.AddModule<DialogAModule>();
+            moduleCatalog.AddModule<ViewAModule>();
+            moduleCatalog.AddModule<ViewBModule>();
         }
     }
 }

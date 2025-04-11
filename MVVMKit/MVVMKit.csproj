@@ -58,6 +58,9 @@
     <Compile Include="DI\IContainerProvider.cs" />
     <Compile Include="DI\IContainerRegistry.cs" />
     <Compile Include="DI\IFrameworkContainerProvider.cs" />
+    <Compile Include="Modules\IModule.cs" />
+    <Compile Include="Modules\IModuleCatalog.cs" />
+    <Compile Include="Modules\ModuleCatalog.cs" />
     <Compile Include="MVVM\NotifyBase.cs" />
     <Compile Include="MVVM\ViewModelLocator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
