@@ -58,6 +58,10 @@
     <Compile Include="DI\IContainerProvider.cs" />
     <Compile Include="DI\IContainerRegistry.cs" />
     <Compile Include="DI\IFrameworkContainerProvider.cs" />
+    <Compile Include="Event\EventAggregator.cs" />
+    <Compile Include="Event\IEventAggregator.cs" />
+    <Compile Include="Event\EventBase.cs" />
+    <Compile Include="Event\PubSubEvent.cs" />
     <Compile Include="Modules\IModule.cs" />
     <Compile Include="Modules\IModuleCatalog.cs" />
     <Compile Include="Modules\ModuleCatalog.cs" />

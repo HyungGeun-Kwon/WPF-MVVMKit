@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="Enums\ERegionType.cs" />
     <Compile Include="Enums\EViewType.cs" />
+    <Compile Include="Events\TextEvent.cs" />
     <Compile Include="Names\RegionNames.cs" />
     <Compile Include="Names\ViewNames.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -73,6 +74,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\MVVMKit\MVVMKit.csproj">
+      <Project>{2FB12AE0-5932-436E-A7FA-5634161787EF}</Project>
+      <Name>MVVMKit</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

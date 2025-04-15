@@ -10,6 +10,11 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="View A"/>
             <Label Content="{Binding ServiceA.ServiceAText}"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="SendMessage : "/>
+                <TextBox Text="{Binding SendMessage}" Width="200"/>
+                <Button Content="Send" Command="{Binding BtnSendClickCommand}"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

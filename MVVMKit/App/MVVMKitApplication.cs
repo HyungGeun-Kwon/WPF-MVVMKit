@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using MVVMKit.DI;
 using MVVMKit.Dialogs;
+using MVVMKit.Event;
 using MVVMKit.Modules;
 using MVVMKit.Regions;
 
@@ -53,6 +54,8 @@ namespace MVVMKit.App
             _containerRegistry.RegisterInstance<IRegionManager>(regionManager);
             _containerRegistry.RegisterInstance<IContainerProvider>(container);
             _containerRegistry.RegisterInstance<IFrameworkContainerProvider>(container);
+
+            _containerRegistry.RegisterSingleton<IEventAggregator, EventAggregator>();
         }
         private void RegisterModules()
         {

@@ -10,6 +10,10 @@
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
             <Label Content="View B"/>
             <Label Content="{Binding ServiceA.ServiceAText}"/>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Received message"/>
+                <TextBox Text="{Binding ReceivedMessage}" IsReadOnly="True" Width="200"/>
+            </StackPanel>
         </StackPanel>
     </Grid>
 </UserControl>

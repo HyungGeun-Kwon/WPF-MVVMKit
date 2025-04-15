@@ -15,6 +15,7 @@ namespace MVVMKitSample.UI.ViewA.Modules
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
             containerRegistry.RegisterForNavigation<AView, AViewModel>(ViewNames.AView);
+            //containerRegistry.RegisterSingleton<AViewModel>(); // ViewModel을 한번만 생성
         }
     }
 }
