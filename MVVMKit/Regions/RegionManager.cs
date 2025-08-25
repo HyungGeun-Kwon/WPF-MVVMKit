@@ -19,10 +19,11 @@ namespace MVVMKit.Regions
 
         internal void RegisterRegionName(string regionName, ContentControl regionControl)
         {
-            if (!_regions.ContainsKey(regionName))
+            if (_regions.ContainsKey(regionName))
             {
-                _regions[regionName] = regionControl;
+                _regions.Remove(regionName);
             }
+            _regions[regionName] = regionControl;
         }
         public void RequestNavigate(string regionName, string viewKey)
         {
